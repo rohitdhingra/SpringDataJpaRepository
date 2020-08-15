@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,17 +47,28 @@ public class AccessingDataJpaApplication {
 //			em.persist(new Post("Reyansh going to school"));
 //			tx.commit();
 		
-			customerService.insert(new Customer("Jack","Bauer"));
+			
 			postService.save(new Post("New Home"));
 			
 			postRepository.save(new Post("Reyansh Gdoing to scheools"));
-			Optional<Post> findById = postRepository.findById(1L);
+//			Optional<Post> findById = postRepository.findById(1L);
 			Post post = null;
-			if(findById.isPresent())
-{
-	post = findById.get();
-}
-			commentRepository.save(new PostComment("Great Home!!",post));
+//			if(findById.isPresent())
+//{
+//	post = findById.get();
+//}
+			post = postRepository.getOne(1L);
+			commentRepository.save(new PostComment("Great Home!!"
+					,post));
+			
+			PostComment comment = commentRepository.findById(1L).get();
+			System.out.println(comment.getPost().getTitle());
+			System.out.println(comment.getReview());
+			
+			comment= postService.invokeCriteriaQueryMethod(1L);
+			System.out.println(comment.getPost().getTitle());
+			System.out.println(comment.getReview());
+			customerService.insert(new Customer("Jack","Bauer"));
 //			postService.save(new PostComment("New Home"));
 //			repository.save(new Customer("Jack","Bauer"));
 			repository.save(new Customer("Rahul","Dhingra"));

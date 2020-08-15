@@ -1,7 +1,7 @@
 package com.example;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CommentRepository extends  CrudRepository<PostComment,Long>{
+public interface CommentRepository extends  JpaRepository<PostComment,Long>{
 
 }

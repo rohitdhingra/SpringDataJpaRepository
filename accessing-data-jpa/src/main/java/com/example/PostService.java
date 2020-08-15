@@ -25,5 +25,13 @@ public class PostService {
 		em.persist(post);
 		return post.getId();
 	}
+
+	@Transactional
+	public PostComment invokeCriteriaQueryMethod(long l) {
+		
+		return em.createQuery("select pc  from PostComment pc join fetch pc.post where pc.id=:id",PostComment.class)
+				.setParameter("id", l)
+				.getSingleResult();
+	}
 	
 }
