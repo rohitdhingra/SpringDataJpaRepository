@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,21 @@ public class AccessingDataJpaApplication {
 	@Autowired
 	private CustomerService customerService;
 	
+	@Autowired
+	private PostService postService;
+	
+	@Autowired
+	private CommentRepository commentRepository;
+	
+	@Autowired
+	private PostRepository postRepository;
+	
+//	@PersistenceContext
+//	private EntityManager entityManager;
+	
+//	@PersistenceContext
+//	private EntityManagerFactory emf;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AccessingDataJpaApplication.class, args);
 	}
@@ -24,8 +41,26 @@ public class AccessingDataJpaApplication {
 	public CommandLineRunner demo(CustomerRepository repository)
 	{
 		return (args) ->{
+//			EntityManager em = emf.createEntityManager();
+//			Session session = null;
+//			session = em.unwrap(Session.class);
+//			EntityTransaction tx = em.getTransaction();
+//			tx.begin();
+//			em.persist(new Post("Reyansh going to school"));
+//			tx.commit();
+		
 			customerService.insert(new Customer("Jack","Bauer"));
+			postService.save(new Post("New Home"));
 			
+			postRepository.save(new Post("Reyansh Gdoing to scheools"));
+			Optional<Post> findById = postRepository.findById(1L);
+			Post post = null;
+			if(findById.isPresent())
+{
+	post = findById.get();
+}
+			commentRepository.save(new PostComment("Great Home!!",post));
+//			postService.save(new PostComment("New Home"));
 //			repository.save(new Customer("Jack","Bauer"));
 			repository.save(new Customer("Rahul","Dhingra"));
 			repository.save(new Customer("Rohit","Dhingra"));
@@ -44,7 +79,7 @@ public class AccessingDataJpaApplication {
 			log.info("Customer found with LastName method");
 			repository.findByLastName("Dhingra").forEach(obj -> log.info(obj.toString()));
 //			log.info(cust.toString());
-			
+			Thread.currentThread().join();
 		};
 		
 		
