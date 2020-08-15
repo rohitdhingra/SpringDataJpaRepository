@@ -2,6 +2,7 @@ package com.example;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,9 @@ public class AccessingDataJpaApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 	
+	@Autowired
+	private CustomerService customerService;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AccessingDataJpaApplication.class, args);
 	}
@@ -20,7 +24,9 @@ public class AccessingDataJpaApplication {
 	public CommandLineRunner demo(CustomerRepository repository)
 	{
 		return (args) ->{
-			repository.save(new Customer("Jack","Bauer"));
+			customerService.insert(new Customer("Jack","Bauer"));
+			
+//			repository.save(new Customer("Jack","Bauer"));
 			repository.save(new Customer("Rahul","Dhingra"));
 			repository.save(new Customer("Rohit","Dhingra"));
 			repository.save(new Customer("Anchal","Dhingra"));
