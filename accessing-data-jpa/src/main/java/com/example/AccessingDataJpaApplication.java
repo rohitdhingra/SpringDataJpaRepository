@@ -8,6 +8,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.entities.Customer;
+import com.example.entities.Post;
+import com.example.entities.PostComment;
+import com.example.repository.CommentRepository;
+import com.example.repository.CustomerRepository;
+import com.example.repository.PostRepository;
+import com.example.services.CustomerService;
+import com.example.services.PostService;
+
 @SpringBootApplication
 public class AccessingDataJpaApplication {
 
